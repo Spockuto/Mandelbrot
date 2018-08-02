@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mandlebrot Sets</title>
+  <style type="text/css">
+    #sliderDiv{
+      position: fixed;
+      right : 5px;
+      top : 5px;
+      z-index: 2;
+      background-color: #808080;
+      opacity: 0.7;
+      width: 300px;
+      height: 200px;
+    }
+
+    #dummy{
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+	<canvas id="mandelbrotCanvas" style="border:1px solid #000000;"></canvas>
+  <div id="sliderDiv">
+      <center><code>
+        <div id="dummy">
+          <h1> Mandelbrot Set </h1>
+          <strong>Pan X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+          <input type="range" min="0.1" max="10" value="2" step="0.1" class="slider" id="panx" oninput="PanXVal(this.value)" onchange="PanXVal(this.value)"> <br>
+          
+          <strong>Pan Y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+          <input type="range" min="0.1" max="10" value="0.7" step="0.1" class="slider" id="pany" oninput="PanYVal(this.value)" onchange="PanYVal(this.value)"> <br>
+          
+          <strong>Mag Factor&nbsp;</strong>
+          <input type="range" min="100" max="1000" value="500" class="slider" id="magf" oninput="Val(this.value)" onchange="Val(this.value)" > <br>
+          
+          <strong>Iterations&nbsp;</strong>
+          <input type="range" min="10" max="200" value="25" class="slider" id="magf" oninput="ItVal(this.value)" onchange="ItVal(this.value)" > <br>
+
+           <strong>Hue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+           <input type="range" min="0" max="255" value="30" class="slider" id="magf" oninput="HueVal(this.value)" onchange="HueVal(this.value)" > <br>
+
+          <input type="button" name="GENERATE" value="GENERATE" onclick="Generate()">
+        
+        </div>
+      </code></center>
+  </div>
+</body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.0.4/math.min.js"></script>
+<script type="text/javascript" src="mandelbrot.js"></script>
+</html>
