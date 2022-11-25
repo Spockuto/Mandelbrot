@@ -1,0 +1,44 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="column-1">
+            <div class="box">
+                <h1><b>Mandlebrot Set</b></h1>
+                <form>
+                    <p>Iterations <input type="number" class="no-outline" placeholder="30" value="30" id="iterations" min="20" max="200"></p>
+                    <p>Hue <input type="number" class="no-outline" placeholder="30" value="30" id="hue" min="1" max="255"></p>
+                    <p>Color<input type="text" class="no-outline" placeholder="#64FFDA" value="#64FFDA" id="color1"></p>
+                    <input type="submit" value="Generate" id="generate" />
+                </form>
+            </div>
+        </div>
+        <div class="column-2" id="canvasdiv">
+            <canvas id="canvas" height="150" width="150"></canvas>
+        </div>
+    </div>
+    <script type="module">
+        import init, {generate_canvas} from './pkg/mandlebrotset.js';
+		
+		document.getElementById("generate").addEventListener("click", function(event){
+			event.preventDefault()
+			var iterations = document.getElementById("iterations").value;
+            var hue = document.getElementById("hue").value;
+			var color1 = document.getElementById("color1").value;
+			run(iterations, hue, color1);
+		});
+		
+		async function run(iterations, hue, color1) {
+			await init();
+			generate_canvas(iterations, hue, color1);
+		}
+    </script>
+</body>
+
+</html>
