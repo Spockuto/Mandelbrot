@@ -1,0 +1,15 @@
+{
+  "name": "mandlebrotset",
+  "collaborators": [
+    "Spockuto"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "mandlebrotset_bg.wasm",
+    "mandlebrotset.js",
+    "mandlebrotset.d.ts"
+  ],
+  "module": "mandlebrotset.js",
+  "types": "mandlebrotset.d.ts",
+  "sideEffects": false
+}
