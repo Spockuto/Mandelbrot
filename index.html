@@ -11,10 +11,19 @@
         <div class="column-1">
             <div class="box">
                 <h1><b>Mandlebrot Set</b></h1>
+                <p>Centers to choose:</p>
+                <select name="center" id="center">
+                    <option value="1">(-0.75, 0.1)</option>
+                    <option value="2">(-2.0, 0.0)</option>
+                    <option value="3">(-0.10109636384562,0.95628651080914)</option>
+                    <option value="4">(-0.77568377, 0.13646737)</option>
+                </select>
                 <form>
-                    <p>Iterations <input type="number" class="no-outline" placeholder="30" value="30" id="iterations" min="20" max="200"></p>
+
+                    <p>Frames <input type="number" class="no-outline" placeholder="500" value="500" id="frames" min="10" max="10000"></p>
+                    <p>Iterations <input type="number" class="no-outline" placeholder="100" value="100" id="iterations" min="20" max="500"></p>
                     <p>Hue <input type="number" class="no-outline" placeholder="30" value="30" id="hue" min="1" max="255"></p>
-                    <p>Color<input type="text" class="no-outline" placeholder="#64FFDA" value="#64FFDA" id="color1"></p>
+                    <p>Color<input type="text" class="no-outline" placeholder="#EFEFEF" value="#EFEFEF" id="color"></p>
                     <input type="submit" value="Generate" id="generate" />
                 </form>
             </div>
@@ -27,16 +36,18 @@
         import init, {generate_canvas} from './pkg/mandlebrotset.js';
 		
 		document.getElementById("generate").addEventListener("click", function(event){
-			event.preventDefault()
+			event.preventDefault();
+            var center = document.getElementById("center").value;
+            var frames = document.getElementById("frames").value;
 			var iterations = document.getElementById("iterations").value;
             var hue = document.getElementById("hue").value;
-			var color1 = document.getElementById("color1").value;
-			run(iterations, hue, color1);
+			var color = document.getElementById("color").value;
+			run(center, frames, iterations, hue, color);
 		});
 		
-		async function run(iterations, hue, color1) {
+		async function run(center, frames, iterations, hue, color) {
 			await init();
-			generate_canvas(iterations, hue, color1);
+			generate_canvas(center, frames, iterations, hue, color);
 		}
     </script>
 </body>
