@@ -8,6 +8,7 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::Clamped;
 use wasm_bindgen::JsCast;
 
+#[allow(clippy::too_many_arguments)]
 fn mandelbrot_zoom_frame(
     width: u32,
     height: u32,
@@ -54,7 +55,7 @@ fn mandelbrot_zoom_frame(
             }
         }
     }
-    return result;
+    result
 }
 
 fn request_animation_frame(f: &Closure<dyn FnMut()>) {
@@ -64,14 +65,8 @@ fn request_animation_frame(f: &Closure<dyn FnMut()>) {
         .expect("should register `requestAnimationFrame` OK");
 }
 
-// Called when the wasm module is instantiated
-#[wasm_bindgen(start)]
-pub fn main() -> Result<(), JsValue> {
-    Ok(())
-}
-
 #[wasm_bindgen]
-pub fn generate_canvas(center: u32, frames: u32, iterations: u32, hue: u32, color: String) -> () {
+pub fn generate_canvas(center: u32, frames: u32, iterations: u32, hue: u32, color: String) {
     let document = web_sys::window().unwrap().document().unwrap();
     let canvas = document.get_element_by_id("canvas").unwrap();
     let canvas: web_sys::HtmlCanvasElement = canvas
@@ -103,6 +98,7 @@ pub fn generate_canvas(center: u32, frames: u32, iterations: u32, hue: u32, colo
         2 => (-2.0, 0.0),
         3 => (-0.10109636384562, 0.95628651080914),
         4 => (-0.77568377, 0.13646737),
+        5 => (-0.4244, 0.200759),
         _ => (1.0, 1.0),
     };
 
@@ -124,18 +120,18 @@ pub fn generate_canvas(center: u32, frames: u32, iterations: u32, hue: u32, colo
         }
 
         zoom += 1;
-        let mut data = mandelbrot_zoom_frame(
+        let data = mandelbrot_zoom_frame(
             width as u32,
             height as u32,
             iterations,
             hue as f32,
             default.clone(),
             zoom as f64,
-            x.clone(),
-            y.clone(),
+            x,
+            y,
         );
         let data = web_sys::ImageData::new_with_u8_clamped_array_and_sh(
-            Clamped(&mut data),
+            Clamped(&data),
             width as u32,
             height as u32,
         )
@@ -144,4 +140,10 @@ pub fn generate_canvas(center: u32, frames: u32, iterations: u32, hue: u32, colo
         request_animation_frame(f.borrow().as_ref().unwrap());
     }) as Box<dyn FnMut()>));
     request_animation_frame(g.borrow().as_ref().unwrap());
+}
+
+// Called when the wasm module is instantiated
+#[wasm_bindgen(start)]
+pub fn main() -> Result<(), JsValue> {
+    Ok(())
 }

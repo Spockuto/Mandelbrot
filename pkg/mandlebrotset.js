@@ -205,12 +205,6 @@ function __wbg_adapter_14(arg0, arg1) {
 }
 
 /**
-*/
-export function main() {
-    wasm.main();
-}
-
-/**
 * @param {number} center
 * @param {number} frames
 * @param {number} iterations
@@ -221,6 +215,12 @@ export function generate_canvas(center, frames, iterations, hue, color) {
     const ptr0 = passStringToWasm0(color, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
     wasm.generate_canvas(center, frames, iterations, hue, ptr0, len0);
+}
+
+/**
+*/
+export function main() {
+    wasm.main();
 }
 
 function isLikeNone(x) {

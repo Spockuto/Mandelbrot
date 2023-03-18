@@ -1,9 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
-*/
-export function main(): void;
-/**
 * @param {number} center
 * @param {number} frames
 * @param {number} iterations
@@ -11,13 +8,16 @@ export function main(): void;
 * @param {string} color
 */
 export function generate_canvas(center: number, frames: number, iterations: number, hue: number, color: string): void;
+/**
+*/
+export function main(): void;
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
 export interface InitOutput {
   readonly memory: WebAssembly.Memory;
-  readonly main: () => void;
   readonly generate_canvas: (a: number, b: number, c: number, d: number, e: number, f: number) => void;
+  readonly main: () => void;
   readonly __wbindgen_malloc: (a: number) => number;
   readonly __wbindgen_realloc: (a: number, b: number, c: number) => number;
   readonly __wbindgen_export_2: WebAssembly.Table;
